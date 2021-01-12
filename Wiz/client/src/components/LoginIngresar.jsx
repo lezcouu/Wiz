@@ -16,7 +16,7 @@ import {sessionLogin} from "../Redux/actions/userActions.js";
 import Swal from "sweetalert2";
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { FaUserLock } from "react-icons/fa"
+import { FaUserLock } from "react-icons/fa";
 
 
 
@@ -25,7 +25,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Smartbyte
+        Wizpro
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -91,19 +91,14 @@ function LoginIngresar({sessionLogin}) {
   if(res.status === "error"){
         setHelperText(`Tuviste un Error al iniciar sesion: datos incorrectos`);
      }
-  if(res.user.role === "superadmin"){
-    Swal.fire("Bienvenido admin").then( respuesta => {
-      history.push("/superadmin")
-    })
-  }
-  if(res.user.active === false){
+  if(res.us.active === false){
     Swal.fire('No pudiste iniciar Sesion contactate con tu administrador o soporte')
     .then(respuesta => {
     window.localStorage.clear("User")
     setHelperText(`Tuviste un Error al iniciar sesion: usuario inactivo`);
     })
     }
-  if(res.user.active === true){
+  if(res.us.active === true){
     Swal.fire('Bienvenido').then(respuesta => {
       history.push("/home")
     })  
@@ -155,10 +150,6 @@ function LoginIngresar({sessionLogin}) {
               value={input.password}
               onChange={handleInputChange}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Recuerdame"
-            />
             <Button
               type="submit"
               fullWidth
@@ -170,8 +161,10 @@ function LoginIngresar({sessionLogin}) {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  ¿Olvidaste tu clave?
+                <Link  
+                onClick={() => history.push(`/register`)}
+                variant="body2">
+                  ¿Queres registrarte?
                 </Link>
                <FormHelperText style={{fontSize:18 ,color:"red"}} error={false}> {helperText} </FormHelperText>
               </Grid>

@@ -19,6 +19,7 @@ function isValidEmail(email) {
 
 
 server.post('/register', async function (req, res, next) {
+  console.log("QUE LLEGA A REGISTER EN BACK ",req.body)
   const salt = crypto.randomBytes(64).toString('hex');
   const password = crypto.pbkdf2Sync(req.body.password, salt, 10000, 64, 'sha512').toString('base64');
 
@@ -38,7 +39,7 @@ server.post('/register', async function (req, res, next) {
       active: true,
       password: password,
       salt: salt,
-      admin: req.body.admin,
+      admin: false,
       date: req.body.date
     });
     if (user) {
@@ -97,15 +98,22 @@ server.post('/login', (req, res, next) => {
     }
     req.logIn(user, (err) => {
       if (err) { return next(err); }
-      
         const sess = Sess.create({
           userId: user.dataValues.id,
-          first_name: req.body.first_name,
-          last_name: req.body.last_name,
-          email: req.body.email,
+          first_name: user.dataValues.first_name,
+          last_name: user.dataValues.last_name,
+          email: user.dataValues.email,
           fecha: req.body.fecha
         })
-     return res.json({ status: 'ok', user });
+        console.log(user.dataValues,"EN BACK")
+        const us = {
+          userId: user.dataValues.id,
+          first_name: user.dataValues.first_name,
+          last_name: user.dataValues.last_name,
+          email: user.dataValues.email,
+          active: user.dataValues.active
+        }
+     return res.json({ status: 'ok', us });
     });
   })(req, res, next);
 

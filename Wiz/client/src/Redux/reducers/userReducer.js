@@ -1,11 +1,11 @@
 import {
-    GET_ALL_USERS, 
-    GET_ALL_USERS_SHOPS,
-    GET_ALL_USERS_ADMIN,
+    GET_ALL_USERS,
     GET_USER, 
     EDIT_USER,
     DELETE_USER,
     RECOVERY_USER,
+    LOGOUT,
+    LOGIN,
   } from "../actions/constants";
   
   const initialState = {
@@ -18,42 +18,43 @@ import {
   
   export default function userReducer(state = initialState, action) {
     switch (action.type) {
+      case LOGIN:
+
+        localStorage.setItem("idUser", action.payload.us.id);
+
+        delete action.payload.password;
+        delete action.payload.securityAnswer;
+        return {
+            ...state,
+            sessionUser: action.payload.us
+        }
+      case LOGOUT:
+        
+        return {
+            ...state,
+            sessionUser: {}
+        }
       case GET_ALL_USERS:
         return {
           ...state,
           users: action.payload,
-        };
-  
-      case GET_ALL_USERS_ADMIN:
-        return {
-          ...state,
-          usersAdmin: action.payload,
-        };
-  
+        };  
       case GET_USER:
         return {
           user: action.payload,
-        };
-      case GET_ALL_USERS_SHOPS:
-        return {
-          userShops: action.payload.shops,
         };
       case EDIT_USER:
         return{
           ...state,
           users: [...state.users.map(elem => {
-              if (elem.id === action.payload[0].id) {
+              if (elem.id === action.payload.id) {
                   return {
                       ...elem,
-                      id: action.payload[0].id,
-                      first_name: action.payload[0].first_name,
-                      last_name: action.payload[0].last_name,
-                      active:action.payload[0].active,
-                      email: action.payload[0].email,
-                      role: action.payload[0].role,
-                      resetPasswordToken: action.payload[0].resetPasswordToken,
-                      resetPasswordExpires: action.payload[0].resetPasswordExpires,
-                      shops: action.payload[0].shops
+                      id: action.payload.id,
+                      first_name: action.payload.first_name,
+                      last_name: action.payload.last_name,
+                      active: true,
+                      email: action.payload.email,                      
                   }
               } else {
                   return elem;
@@ -64,16 +65,14 @@ import {
         return{
           ...state,
           users: [...state.users.map(elem => {
-              if (elem.id === action.payload.id) {
+              if (elem.id == action.payload.id) {
                   return {
                       ...elem,
                       id: action.payload.id,
                       first_name: action.payload.first_name,
                       last_name: action.payload.last_name,
                       active:action.payload.active,
-                      email: action.payload.email,
-                      role: action.payload.role,
-                      shops: action.payload.shops
+                      email: action.payload.email
                   }
               } else {
                   return elem;
@@ -84,7 +83,7 @@ import {
         return{
           ...state,
           users: [...state.users.map(elem => {
-              if (elem.id === action.payload.id) {
+              if (elem.id == action.payload.id) {
                   return {
                       ...elem,
                       id: action.payload.id,
@@ -92,8 +91,6 @@ import {
                       last_name: action.payload.last_name,
                       active:action.payload.active,
                       email: action.payload.email,
-                      role: action.payload.role,
-                      shops: action.payload.shops
                   }
               } else {
                   return elem;

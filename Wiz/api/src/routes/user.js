@@ -17,14 +17,21 @@ server.put('/:id', (req, res, next) => {
         },
         { where: { id } }
     ).then((usuario) => {
-        res.status(200).send(usuario);
+        const us = {
+            id: req.body.id,
+            first_name: first_name,
+            last_name: last_name,
+            adress: adress,
+            email: email
+        }
+        res.status(200).send(us);
     }).catch(next);
 });
 
 
 server.get('/', (req, res, next) => {
     User.findAll({
-        where:{active: true}
+        attributes: ["id","first_name","last_name","email","adress","active"]
     })
         .then(usuarios => {
             res.send(usuarios);
@@ -33,29 +40,48 @@ server.get('/', (req, res, next) => {
 //desactiva el usuario
 server.put('/delete/:id', (req, res, next) => {
     const { id } = req.params;
+    const { first_name, last_name, email, adress } = req.body.row
     User.update(
         {
             active: false,
         },
         { where: { id } }
     ).then((usuario) => {
-        res.status(200).send(usuario);
+        const us = {
+            id: req.params.id,
+            active: false,
+            first_name: first_name,
+            last_name: last_name,
+            email: email,
+            adress: adress
+        }
+        res.status(200).send(us);
     }).catch(next);
 })
 
 server.put('/recovery/:id', (req, res, next) => {
     const { id } = req.params;
+    const { first_name, last_name, adress, email, active } = req.body.row
     User.update(
         {
             active: true,
         },
         { where: { id } }
     ).then((usuario) => {
-        res.status(200).send(usuario);
+        const us = {
+            id,
+            first_name,
+            last_name,
+            adress,
+            email,
+            active: true
+        }
+        res.status(200).send(us);
     }).catch(next);
 })
 //muestra los inicios de sesion por usuarios.
 server.post("/:id/conteosession", (req,res) => {
+    console.log(req.body)
     const { id } = req.params
     const {createdAtA, createdAtB } = req.body
 
@@ -81,7 +107,6 @@ server.post("/:id/conteosession", (req,res) => {
 //muestra los registros por dia.
   server.post("/registerday", (req,res) => {
     const {createdAtA, createdAtB } = req.body
-    console.log(createdAtA, createdAtB)
 
     User.findAll({
           where: {

@@ -1,15 +1,18 @@
 import {
     GET_ALL_USERS,
-    GET_ALL_USERS_ADMIN,
     GET_USER,
     CREATE_USER,
     EDIT_USER,
     DELETE_USER,
     RECOVERY_USER,
     API_URL,
-    LOGIN
+    LOGIN,
+    LOGOUT,
+    GET_SESSION_USER,
+    GET_REGISTER
   } from "./constants";
   import Swal from "sweetalert2"
+
   
   // ----------------- LOGIN --------
 export function sessionLogin(data){
@@ -38,31 +41,53 @@ export function sessionLogin(data){
             console.error("ESTE ES EL ERROR QUE RECIBISTE",err)})
     }
 }
-// ------------- TRAE TODOS LOS USUARIOS POR COMERCIO
-  export function getAllUsers(id) {
-      return function(dispatch) {
-          return fetch(`${API_URL}/users/shop/${id}`, {
-              credentials: 'include'
-          })
-          .then((r) => r.json())
-          .then((data) => {
-              dispatch({ type: GET_ALL_USERS, payload: data})
-          })
-          .catch((error) => {
-              console.error(error);
-          });
-      }
+
+// ----------------- LOGOUT --------
+export function sessionLogout() {
+    return function(dispatch) {
+
+        return fetch(`${API_URL}/auth/logout`, {
+            credentials: 'include'
+        })
+        .then(() => {
+            dispatch({ type: LOGOUT})
+        })
+        .catch((error) => {
+            console.error('error', error);
+        });
+    }
+}
+
+// ------------- TRAE SOLO UN USUARIO
+export function getUser(id) {
+    return function (dispatch) {
+      return fetch(`${API_URL}/Users/${id}`, {
+          headers : {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+          },
+           credentials: 'include'
+      })
+        .then((r) => r.json())
+        .then((data) => {
+          dispatch({ type: GET_USER, payload: data });
+        })
+        .catch((error) => {
+            console.log(error)
+        });
+    };
   }
   
   // ------------- TRAE TODOS LOS USUARIOS POR COMERCIO
-  export function getAllUsersAdmin() {
+  export function getAllUsers() {
       return function(dispatch) {
-          return fetch(`${API_URL}/shops/superadmin/todos/users`, {
+          return fetch(`${API_URL}/users`, {
               credentials: 'include'
           })
           .then((r) => r.json())
           .then((data) => {
-              dispatch({ type: GET_ALL_USERS_ADMIN, payload: data})
+              console.log(data,"EN REDUCER")
+              dispatch({ type: GET_ALL_USERS, payload: data})
           })
           .catch((error) => {
               console.error(error);
@@ -88,7 +113,7 @@ export function sessionLogin(data){
   
   // ----------------- CREA UN USUARIO
   export function createUser(user){
-      const url = `${API_URL}/users/`;
+      const url = `${API_URL}/auth/register`;
       return function(dispatch)
       {
           return fetch(url, {
@@ -100,6 +125,9 @@ export function sessionLogin(data){
               credentials: 'include'
           }).then((r) => r.json())
             .then(res => {
+              Swal.fire('Usuario creado con exito').then(respuesta => {
+                window.location.replace("/")
+              })
               dispatch({type: CREATE_USER, payload: res})
           }).catch(err => console.error(err))
       }
@@ -124,30 +152,10 @@ export function sessionLogin(data){
       }
   }
   
-  // ------------- TRAE SOLO UN USUARIO
-  export function getUser(id) {
-    return function (dispatch) {
-      return fetch(`${API_URL}/Users/${id}`, {
-          headers : {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-          },
-           credentials: 'include'
-      })
-        .then((r) => r.json())
-        .then((data) => {
-          dispatch({ type: GET_USER, payload: data });
-        })
-        .catch((error) => {
-            console.log(error)
-        });
-    };
-  }
-  
   // ------------------ EDITA UN USUARIO
-  export function editUser(user){
+  export function userEdit(user){
       return function(dispatch) {
-          return fetch(`${API_URL}/users/modified/${user.id}`, {
+          return fetch(`${API_URL}/users/${user.id}`, {
               method: 'PUT',
               body: JSON.stringify(user),
               headers: {
@@ -156,9 +164,12 @@ export function sessionLogin(data){
               credentials: 'include'
           }).then((r) => r.json())
             .then(data => {
+               Swal.fire('Exito'); 
                dispatch({ type: EDIT_USER, payload:data })
   
-           }).catch(err => console.error(err))
+           }).catch(err => {
+            Swal.fire('Sucedio un error intenta nuevamente');
+            console.error(err)})
       }
   }
   
@@ -205,16 +216,19 @@ export function sessionLogin(data){
           credentials: 'include'
       }).then(r => r.json())
         .then(data => {
+            Swal.fire('Usuario bloqueado'); 
             dispatch({type: DELETE_USER, payload: data})
           })
-          .catch((err) => console.error(err));
+          .catch((err) => {
+            Swal.fire('Ocurrio un problema al bloquear'); 
+            console.error(err)});
     };
   }
   
   // ------------------ RECUPERA UN USUARIO
   export function recoveryUser(row) {
       return function(dispatch) {
-          return fetch(`${API_URL}/users/recovery/${row}`, {
+          return fetch(`${API_URL}/users/recovery/${row.id}`, {
           method: 'PUT',
           body: JSON.stringify({ row }),
           headers: {
@@ -223,8 +237,54 @@ export function sessionLogin(data){
           credentials: 'include'
       }).then(r => r.json())
         .then(res => {
+            Swal.fire('Usuario recuperado'); 
             dispatch({type: RECOVERY_USER, payload: res})
           })
-          .catch((err) => console.error(err));
+          .catch((err) => {
+            Swal.fire('Ocurrio un problema al recuperar'); 
+            console.error(err)});
     };
   }
+
+    // ------------- TRAE TODAS LAS SESSION DEL USUARIO
+    export function getSession(row, input) {
+        return function(dispatch) {
+            return fetch(`${API_URL}/users/${row}/conteosession`, {
+                method: 'POST',
+                body: JSON.stringify(input),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            })
+            .then((r) => r.json())
+            .then((data) => {
+                dispatch({ type: GET_SESSION_USER, payload: data})
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        }
+    }
+
+    // ------------- TRAE LOS REGISTROS POR PERIODO
+    export function getRegister(input) {
+        return function(dispatch) {
+            return fetch(`${API_URL}/users/registerday`, {
+                method: 'POST',
+                body: JSON.stringify(input),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            })
+            .then((r) => r.json())
+            .then((data) => {
+                console.log(data,"ANTES DE IR A REDUCER")
+                dispatch({ type: GET_REGISTER, payload: data})
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        }
+    }

@@ -6,7 +6,7 @@ DB_PASSWORD=keypostgres
 DB_HOST=localhost
 La base de datos a crear debe llamarse challenge.
 
-###Para clonar git clone url
+Para clonar git clone url
 
 Abrir carpeta api con consola npm install
 Abrir carpeta client con consola npm install

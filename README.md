@@ -1,8 +1,8 @@
 # Wiz
 Se utlizo tecnología sequelize, postgresql en el back-end,
 Tener en cuenta que para levantar la api deberías tener un archivo .env creado en api. Debes poner el 
-DB_USER=pablo
-DB_PASSWORD=123
+DB_USER=userpostgres
+DB_PASSWORD=keypostgres
 DB_HOST=localhost
 La base de datos a crear debe llamarse challenge.
 

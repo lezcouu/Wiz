@@ -19,7 +19,6 @@ function isValidEmail(email) {
 
 
 server.post('/register', async function (req, res, next) {
-  console.log("QUE LLEGA A REGISTER EN BACK ",req.body)
   const salt = crypto.randomBytes(64).toString('hex');
   const password = crypto.pbkdf2Sync(req.body.password, salt, 10000, 64, 'sha512').toString('base64');
 
@@ -56,7 +55,6 @@ server.post('/register', async function (req, res, next) {
       })(req, res, next);
     }
   } catch (err) {
-    console.log(err)
     return res.json({ status: 'error', message: 'Esta dirección de email ya está registrada' });
   }
 });
@@ -90,6 +88,7 @@ server.put('/promote/:id', (req, res, next) => {
       res.status(400);
     })
 })
+
 server.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) { return next(err); }
@@ -105,7 +104,7 @@ server.post('/login', (req, res, next) => {
           email: user.dataValues.email,
           fecha: req.body.fecha
         })
-        console.log(user.dataValues,"EN BACK")
+        
         const us = {
           userId: user.dataValues.id,
           first_name: user.dataValues.first_name,

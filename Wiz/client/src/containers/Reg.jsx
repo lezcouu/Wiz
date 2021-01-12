@@ -7,16 +7,17 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from "@material-ui/core/Button";
 import Box from '@material-ui/core/Box';
+import Grid from "@material-ui/core/Grid"
 import Typography from '@material-ui/core/Typography';
 import { useHistory } from 'react-router-dom';
+import "./Style.css"
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginLeft:"25%",
-    marginTop:"1%",
+    margin:"1%",
     alignItems:"center",
     justifyContent:"center",
-    width: 500,
+    width: "90%",
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
@@ -77,14 +78,13 @@ function Reg({getRegister, register}){
       return elem.Registro
     }) 
 
-    const arreglo =[1,20]
      const charDatos = () => {
         setState({
         name: 'React',
         data: {
           labels: f,
           datasets: [{
-            label: "Uso de la plataforma",
+            label: "Registros diarios",
             data: i
         ,
           backgroundColor: [
@@ -100,8 +100,9 @@ function Reg({getRegister, register}){
       const history = useHistory();
 
     return(
-        <div>
-            <div className={classes.paper} style={{textAlign:"center"}}>
+      <Grid>
+        
+        <div className={classes.paper}style={{textAlign:"center"}}>
         <Box width="100%" p={1} my={5}>
         <Button 
         onClick={() => history.push(`/home`)}
@@ -145,13 +146,13 @@ function Reg({getRegister, register}){
             Buscar
           </Button>
           </Box>
-          <Typography className={classes.botones} component="h5"  variant="h7">Inicio de sesion por periodos del usuario</Typography>
+          <Typography className={classes.botones} component="h5"  variant="h7">Usuarios nuevos por periodo</Typography>
         
         <Line
               data={state.data}
             />
       </div>
-      </div>
+      </Grid>
       )
 }
 

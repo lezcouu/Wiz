@@ -2,7 +2,6 @@ import React, {  } from "react";
 import { connect } from 'react-redux';
 import { useHistory } from "react-router-dom"
 import { createUser } from "../Redux/actions/userActions.js"
-import { makeStyles } from '@material-ui/core/styles';
 import { Formik } from "formik"
 import { Button } from "@material-ui/core"
 import TextField from '@material-ui/core/TextField';
@@ -12,11 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box'
 
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    textAlign:"center"
-  },
-  }))
+
 
 const schema = Yup.object().shape({
   first_name: Yup.string().required(),
@@ -28,7 +23,6 @@ const schema = Yup.object().shape({
 })
 
 function Register({ createUser }) {
-  const classes = useStyles();
   let history = useHistory()
 
   return (
@@ -73,7 +67,6 @@ function Register({ createUser }) {
               values,
               touched,
               errors,
-              isSubmitting,
               handleChange,
               handleBlur,
               handleSubmit
@@ -110,9 +103,7 @@ function Register({ createUser }) {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 placeholder="Ingresa tu nombre"
-                className={
-                  errors.first_name && touched.first_name && "error"
-                }
+                
                 />
                 {
                   errors.first_name && touched.first_name && (
@@ -132,9 +123,7 @@ function Register({ createUser }) {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 placeholder="Ingresa tu apellido"
-                className={
-                  errors.last_name && touched.last_name && "error"
-                }
+                
                 />
                 {
                   errors.last_name && touched.last_name && (
@@ -143,7 +132,7 @@ function Register({ createUser }) {
                 }
                 <label 
                 className="label"
-                htmlFor="Dirección">Dirección</label>
+                htmlFor="Dirección o Ciudad">Dirección o Ciudad</label>
                 <TextField
                 id="outlined-search"
                 variant="outlined" 
@@ -154,9 +143,7 @@ function Register({ createUser }) {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 placeholder="Ingresa dirección o ciudad"
-                className={
-                  errors.adress && touched.adress && "error"
-                }
+                
                 />
                 {
                   errors.adress && touched.adress && (
@@ -175,10 +162,8 @@ function Register({ createUser }) {
                 name="email" 
                 onChange={handleChange}
                 onBlur={handleBlur}
-                placeholder="Ingresa tu email"
-                className={
-                  errors.email && touched.email && "error"
-                }
+                placeholder="Ingresa tu correo"
+                
                 />
                 {
                   errors.email && touched.email && (
@@ -200,10 +185,8 @@ function Register({ createUser }) {
                 name="password" 
                 onChange={handleChange}
                 onBlur={handleBlur}
-                placeholder="ingresa tu password"
-                className={
-                  errors.password && touched.password && "error"
-                }
+                placeholder="ingresa tu contraseña"
+                
                 />
                 {
                   errors.password && touched.password && (
@@ -226,9 +209,7 @@ function Register({ createUser }) {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 placeholder="Reingresa tu password"
-                className={
-                  errors.passwordR && touched.passwordR && "error"
-                }
+                
                 />
                 
                 {
@@ -238,9 +219,10 @@ function Register({ createUser }) {
                 }
                 <div></div>
                 <Button 
-                className="butt"
+                style={{ marginTop:"10px"}}
                 type="submit"
-                disabled={isSubmitting}
+                color="primary"
+                variant="contained"
                 >
                   Registrarse
                 </Button>

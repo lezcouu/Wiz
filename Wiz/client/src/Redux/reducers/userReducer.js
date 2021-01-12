@@ -11,9 +11,6 @@ import {
   const initialState = {
     user: {},
     users: [],
-    usersAdmin:[],
-    userShops: [],
-    shops:[]
   };
   
   export default function userReducer(state = initialState, action) {
@@ -54,7 +51,8 @@ import {
                       first_name: action.payload.first_name,
                       last_name: action.payload.last_name,
                       active: true,
-                      email: action.payload.email,                      
+                      email: action.payload.email,
+                      adress: action.payload.adress                      
                   }
               } else {
                   return elem;

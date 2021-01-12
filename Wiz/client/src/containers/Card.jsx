@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -30,14 +30,13 @@ const useStyles = makeStyles({
 const MediaCard = ({ props, recoveryUser }) => {
   
     const users = props
-    const [ input, setInput ] = useState()
     
   const classes = useStyles();
   
   const restoreUser = (row) => {
     recoveryUser(row)
   }
-  const setOpen = (true)
+  
 
   return (
     <Grid container>
@@ -77,12 +76,16 @@ const MediaCard = ({ props, recoveryUser }) => {
                         <Button size="small" color="primary">
                         <EditUser row={row} />
                         </Button>
+                        {row.active===true ?(
                         <Button size="small" color="primary">
                         <DeleteUser row={row}/>
                         </Button>
+                        ):<div></div>}
+                        {row.active === false? (
                         <Button size="small" color="primary">
                         <SettingsBackupRestoreIcon onClick={() => restoreUser(row)}/>
                         </Button>
+                        ):<div></div>}
                         <Button>
                           <SimpleModal row={row}/>
                         </Button>

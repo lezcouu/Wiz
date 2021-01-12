@@ -7,7 +7,6 @@ import {
 } from '@material-ui/core';
 import { FaElementor } from "react-icons/fa"
 import { connect } from 'react-redux';
-import { useParams } from "react-router-dom";
 import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles ((theme) => ({
@@ -27,9 +26,7 @@ const useStyles = makeStyles ((theme) => ({
 }))
 
 const NavBar = ( props, {  }) => {
-	const {shop} = useParams();
 	const classes = useStyles()
-
 	const [mobileOpen, setMobileOpen] = React.useState(false);
 
 	const open = () => {

@@ -86,7 +86,6 @@ function SimpleModal({ row, getSession, session }){
       getSession(row.id, input)
     }
 
-    const arreglo =[1,20]
      const charDatos = () => {
         setState({
         name: 'React',

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { useHistory , useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
-  CssBaseline,
   Divider,
   Drawer,
   Hidden,
@@ -47,21 +46,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ResponsiveDrawer({sessionLogout, cleanOrders, cleanProduct, cleanCategory, cleanTotalNumeros, cleanEtiquetas}) {
-  const {id} = useParams();
-  const {shop} = useParams();
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const clean = []
+  
 
   const history = useHistory();
   const open = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const cleanP = () => {
-    window.location = "/home"
-  }
+  
 
   const list = (
     <div className={classes.root}>

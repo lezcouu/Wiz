@@ -20,6 +20,7 @@
 	color: #007bff;
 	font-size: 16px;
 }
+
 .mainHeader {
 	font-size: 32px;
 	margin-bottom: 20px;
@@ -45,7 +46,10 @@
 .col-4 {
 	width: 100%;
 }
-
+.fondo{
+  width: 100%;
+  margin-top: 7%
+}
 .formu{
   background: url(https://assets.wizconnected.com/images/wiz-pro/wiz_pro_main_image.jpg?version=1.4.13);
   background-repeat: no-repeat; 
@@ -57,13 +61,14 @@
 .label{
     display:block;
     width:100%;
+    margin-top: 5px;
     margin-bottom: 5px;
     height: 22px
   }
 
  .input{
     display:block;
-    width:100%;
+    width:50%;
     margin-bottom: 20px;
     padding:10px;
     border-radius: 3px;
@@ -85,5 +90,14 @@
     }
     .box{
       margin-left: 0%
+    }
+  }
+
+  @media(max-width:600px){
+    .fondo{
+      width: 250%;
+      margin-left: -75%;
+      margin-top: 15%;
+      overflow: hidden;
     }
   }

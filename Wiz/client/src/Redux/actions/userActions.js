@@ -1,7 +1,6 @@
 import {
     GET_ALL_USERS,
     GET_USER,
-    CREATE_USER,
     EDIT_USER,
     DELETE_USER,
     RECOVERY_USER,
@@ -95,22 +94,6 @@ export function getUser(id) {
       }
   }
   
-  // ------------- TRAE TODOS LOS USUARIOS PARA EL SUPERADMIN
-  export function getAllusersSuperadmin() {
-      return function(dispatch) {
-          return fetch(`${API_URL}/users/`, {
-              credentials: 'include'
-          })
-          .then((r) => r.json())
-          .then((data) => {
-              dispatch({ type: GET_ALL_USERS, payload: data})
-          })
-          .catch((error) => {
-              console.error(error);
-          });
-      }
-  }
-  
   // ----------------- CREA UN USUARIO
   export function createUser(user){
       const url = `${API_URL}/auth/register`;
@@ -125,29 +108,11 @@ export function getUser(id) {
               credentials: 'include'
           }).then((r) => r.json())
             .then(res => {
-              Swal.fire('Usuario creado con exito').then(respuesta => {
-                window.location.replace("/")
-              })
-              dispatch({type: CREATE_USER, payload: res})
-          }).catch(err => console.error(err))
-      }
-  }
-  
-  // ----------------- CREA UN USUARIO
-  export function createAdministrador(user){
-      const url = `${API_URL}/users/superadmin`;
-      return function(dispatch)
-      {
-          return fetch(url, {
-              method: 'POST',
-              body: JSON.stringify(user),
-              headers: {
-                  'Content-Type': 'application/json'
-              },
-              credentials: 'include'
-          }).then((r) => r.json())
-            .then(data => {
-              dispatch({type: CREATE_USER, payload: data})
+              if(res.status ==="error"){
+            return Swal.fire("Este correo ya fue utilizado")
+          } else {
+            return window.location("/")
+            }
           }).catch(err => console.error(err))
       }
   }

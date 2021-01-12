@@ -26,8 +26,7 @@ const Users = ({getAllUsers, users}) => {
     const [header] = useState({
         mainHeader:"Usuarios",
         subHeading: "Usuarios activos e inactivos",
-        text: "Se podran encontrar todos los usuarios que hayan \
-        utilizando nuestra plataforma"
+        text: "Se podran encontrar todos los usuarios que hayan utilizando nuestra plataforma"
     })
     
     const [item, setItem] = useState()

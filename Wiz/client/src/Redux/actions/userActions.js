@@ -77,7 +77,7 @@ export function getUser(id) {
     };
   }
   
-  // ------------- TRAE TODOS LOS USUARIOS POR COMERCIO
+  // ------------- TRAE TODOS LOS USUARIOS
   export function getAllUsers() {
       return function(dispatch) {
           return fetch(`${API_URL}/users`, {

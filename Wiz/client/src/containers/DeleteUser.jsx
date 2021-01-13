@@ -4,7 +4,7 @@ import {
   deleteUser,
 } from "../Redux/actions/userActions.js";
 import Swal from "sweetalert2";
-import DeleteIcon from '@material-ui/icons/Delete';
+import PanToolIcon from '@material-ui/icons/PanTool';
 import Button from '@material-ui/core/Button';
 
 
@@ -28,7 +28,7 @@ const DeleteUser = ({ row, deleteUser }) => {
 
     return (
         <Button size="small" color="primary">
-            <DeleteIcon onClick={()=>blockUser(row)}/>
+            <PanToolIcon onClick={()=>blockUser(row)}/>
         </Button>
     )
 }

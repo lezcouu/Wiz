@@ -109,9 +109,10 @@ export function getUser(id) {
           }).then((r) => r.json())
             .then(res => {
               if(res.status ==="error"){
+                console.log(res,"ESTOY ENTRANDO ACA")
             return Swal.fire("Este correo ya fue utilizado")
           } else {
-            return window.location("/")
+            return window.location.href = "/"
             }
           }).catch(err => console.error(err))
       }

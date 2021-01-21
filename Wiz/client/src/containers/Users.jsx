@@ -10,7 +10,6 @@ import TextField from '@material-ui/core/TextField';
 import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
-
     root: {
       display: "flex",
       width: '100%',
@@ -20,32 +19,32 @@ const useStyles = makeStyles((theme) => ({
           display: 'block',
         },
       },
-}))
+   }))
 const Users = ({getAllUsers, users}) => {
     const classes = useStyles();    
     const [header] = useState({
-        mainHeader:"Usuarios",
-        subHeading: "Usuarios activos e inactivos",
-        text: "Se podran encontrar todos los usuarios que hayan utilizando nuestra plataforma"
-    })
+      mainHeader:"Usuarios",
+      subHeading: "Usuarios activos e inactivos",
+      text: "Se podran encontrar todos los usuarios que hayan utilizando nuestra plataforma"
+  })
     
-    const [item, setItem] = useState()
-    const [items, setItems] = useState()
+const [item, setItem] = useState()
+const [items, setItems] = useState()
     useEffect(() => {
         getAllUsers()
         setItem(users)
      }, [])
-     const onSearch = (text) => {
-         if ( text.length > 2 ) {
-             console.log("BUSCANDO")
-            const itemsFound = item.filter(item => item.first_name.toLowerCase().includes(text.toLowerCase()) || item.email.toLowerCase().includes(text.toLowerCase()));
-            setItems(itemsFound);
-          } else {
-              getAllUsers()
-          }        
-      };
+const onSearch = (text) => {
+   if ( text.length > 2 ) {
+       console.log("BUSCANDO")
+      const itemsFound = item.filter(item => item.first_name.toLowerCase().includes(text.toLowerCase()) || item.email.toLowerCase().includes(text.toLowerCase()));
+      setItems(itemsFound);
+    } else {
+        getAllUsers()
+    }        
+};
     
-    const history = useHistory();
+const history = useHistory();
 
     return (
         <div className="services">
@@ -58,41 +57,41 @@ const Users = ({getAllUsers, users}) => {
                         color="primary"
                         variant="contained"
                         >
-                            Volver a Home
+                          Volver a Home
                         </Button>
                         <h3 className="heading">
-                            {header.mainHeader}
+                          {header.mainHeader}
                         </h3>
                         <h1 className="mainHeader">
-                            {header.subHeading}
+                          {header.subHeading}
                         </h1>
                         <p className="mainContent">
-                            {header.text}
+                          {header.text}
                         </p>
                         <Typography className={classes.title} variant="h6">
-                        Puedes buscar usuarios por nombre o mail
+                          Puedes buscar usuarios por nombre o mail
                         </Typography>
-                            <TextField 
+                          <TextField 
                             style={{background:"#fff", borderRadius:"10px"}}
                             id="outlined-search" 
                             label="buscador" 
                             type="search" 
                             variant="outlined"
                             onChange={ (e) => onSearch(e.target.value)}
-                             />
+                            />
                         <div className="commonBorder"></div>
                     </div>
                     <div className="row bgMain">
-                    <Card props={items} />
+                      <Card props={items} />
                         <div className="col-4">
-                            <Card props={users} />
-                        </div>
+                        <Card props={users} />
+                      </div>
                     </div>
+                  </div>
                 </div>
-                </div>            
-        </div>
-    )
-}
+              </div>
+            )
+          }
 
 const mapStateToProps = state => ({
     users: state.users.users

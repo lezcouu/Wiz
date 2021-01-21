@@ -15,7 +15,7 @@ function Dropdown({}) {
     setAnchorEl(null);
   };
 
-   const handleSession = () => {
+  const handleSession = () => {
     window.localStorage.clear("User")
     window.location = "/"
   }

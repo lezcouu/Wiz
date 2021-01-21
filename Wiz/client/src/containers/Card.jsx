@@ -29,7 +29,7 @@ const useStyles = makeStyles({
 
 const MediaCard = ({ props, recoveryUser }) => {
   
-    const users = props
+  const users = props
     
   const classes = useStyles();
   
@@ -42,56 +42,56 @@ const MediaCard = ({ props, recoveryUser }) => {
     <Grid container>
         {users?.map((row,i) => {
             return (
-                <Grid 
-                key={i}
-                item
-                md={3}
-                sm={6}
-                xs={12}
-                >
-                    <Card style={{marginLeft:"1%", textAlign:"center"}} >
-                    <CardActionArea>
-                        <CardMedia
-                        className={classes.media}
-                        image="https://source.unsplash.com/category/people/"
-                        />
-                        <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
-                        {row.first_name} {row.last_name}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                        {row.email}
-                        </Typography>
-                        {row.active === true?(
-                        <Typography variant="body2" color="textSecondary" component="p">
-                          cuenta activa
-                        </Typography>):
-                        <Typography variant="body2" color="textSecondary" component="p">
-                          cuenta inactiva
-                          </Typography>
-                        }
-                        </CardContent>
-                    </CardActionArea>
-                    <CardActions style={{justifyContent:"center"}}>
-                        <Button size="small" color="primary">
-                        <EditUser row={row} />
-                        </Button>
-                        {row.active===true ?(
-                        <Button size="small" color="primary">
-                        <DeleteUser row={row}/>
-                        </Button>
-                        ):<div></div>}
-                        {row.active === false? (
-                        <Button size="small" color="primary">
-                        <SettingsBackupRestoreIcon onClick={() => restoreUser(row)}/>
-                        </Button>
-                        ):<div></div>}
-                        <Button>
-                          <SimpleModal row={row}/>
-                        </Button>
-                    </CardActions>
-                    </Card>
-                </Grid>
+              <Grid 
+                  key={i}
+                  item
+                  md={3}
+                  sm={6}
+                  xs={12}
+                  >
+                <Card style={{marginLeft:"1%", textAlign:"center"}} >
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    image="https://source.unsplash.com/category/people/"
+                    />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {row.first_name} {row.last_name}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                      {row.email}
+                    </Typography>
+                      {row.active === true?(
+                    <Typography variant="body2" color="textSecondary" component="p">
+                      cuenta activa
+                    </Typography>):
+                    <Typography variant="body2" color="textSecondary" component="p">
+                      cuenta inactiva
+                    </Typography>
+                    }
+                    </CardContent>
+                </CardActionArea>
+                <CardActions style={{justifyContent:"center"}}>
+                  <Button size="small" color="primary">
+                    <EditUser row={row} />
+                  </Button>
+                    {row.active===true ?(
+                  <Button size="small" color="primary">
+                    <DeleteUser row={row}/>
+                  </Button>
+                    ):<div></div>}
+                  {row.active === false? (
+                  <Button size="small" color="primary">
+                    <SettingsBackupRestoreIcon onClick={() => restoreUser(row)}/>
+                  </Button>
+                    ):<div></div>}
+                  <Button>
+                    <SimpleModal row={row}/>
+                  </Button>
+                </CardActions>
+                </Card>
+              </Grid>
             )
         })}
     </Grid>

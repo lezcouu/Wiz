@@ -7,7 +7,6 @@ import {
   Hidden,
   List,
   ListItem,
-  ListItemIcon,
   ListItemText
 } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -45,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ResponsiveDrawer({sessionLogout, cleanOrders, cleanProduct, cleanCategory, cleanTotalNumeros, cleanEtiquetas}) {
+function ResponsiveDrawer() {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -60,33 +59,21 @@ function ResponsiveDrawer({sessionLogout, cleanOrders, cleanProduct, cleanCatego
 
   const list = (
     <div className={classes.root}>
-
-              <List >
-                    <ListItem  button>
-                        <ListItemIcon >
-                        
-                        </ListItemIcon>
-                        <Dropdown
-                          />
-                    </ListItem>
-              </List>
-
-              <List>
-                    
-                    <ListItem onClick={() => history.push(`/home/users`)}  button>
-                        <ListItemIcon >
-                        
-                        </ListItemIcon>
-                        <ListItemText primary={'usuarios'} />
-                    </ListItem>
-                    
-                    <ListItem onClick={() => history.push(`/home/reg`)} button >
-                      <ListItemIcon >
-                          
-                          </ListItemIcon>
-                      <ListItemText primary={'Registros'} />
-                    </ListItem>
-              </List>
+      <List >
+        <ListItem  button>
+            <Dropdown
+              />
+        </ListItem>
+      </List>
+      <List>           
+        <ListItem onClick={() => history.push(`/home/users`)}  button>
+            <ListItemText primary={'usuarios'} />
+        </ListItem>
+        
+        <ListItem onClick={() => history.push(`/home/reg`)} button >
+          <ListItemText primary={'Registros'} />
+        </ListItem>
+      </List>
     </div>
   );
 
@@ -131,10 +118,6 @@ function ResponsiveDrawer({sessionLogout, cleanOrders, cleanProduct, cleanCatego
 }
 
 ResponsiveDrawer.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window: PropTypes.func,
 };
 const mapStateToProps = (state) => ({

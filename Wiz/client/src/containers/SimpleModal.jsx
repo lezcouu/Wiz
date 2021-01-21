@@ -73,7 +73,7 @@ function SimpleModal({ row, getSession, session }){
     }, [session])
 
     
-     const handleChange = (e) => {
+  const handleChange = (e) => {
       e.preventDefault(e)
       setInput({
         ...input,
@@ -81,12 +81,12 @@ function SimpleModal({ row, getSession, session }){
       });
     }
 
-    const dateSearch =(e)=> {
+  const dateSearch =(e)=> {
       e.preventDefault(e)
       getSession(row.id, input)
     }
 
-     const charDatos = () => {
+  const charDatos = () => {
         setState({
         name: 'React',
         data: {
@@ -106,7 +106,7 @@ function SimpleModal({ row, getSession, session }){
         })
       }
     
-    const body = (
+  const body = (
       
       <div className={classes.paper} style={{textAlign:"center"}}>
         <Box width="100%" p={1} my={5}>
@@ -123,7 +123,7 @@ function SimpleModal({ row, getSession, session }){
               shrink: true,
             }}
             onChange= {handleChange}
-          />
+            />
           <TextField
             name="createdAtB"
             id="date"
@@ -135,7 +135,7 @@ function SimpleModal({ row, getSession, session }){
               shrink: true,
             }}
             onChange= {handleChange}
-          />
+            />
           </Box>
           <Button
             variant="contained"
@@ -146,16 +146,14 @@ function SimpleModal({ row, getSession, session }){
             Buscar
           </Button>
           </Box>
-          <Typography className={classes.botones} component="h5"  variant="h7">Inicio de sesion por periodos del usuario</Typography>
-        
+          <Typography className={classes.botones} component="h5"  variant="h7">Inicio de sesion por periodos del usuario</Typography>        
         <Line
               data={state.data}
             />
-      </div>
-      
+      </div>      
     );
 
-    const mod = ( row ) => {
+  const mod = ( row ) => {
       getSession(row.id, input)
       handleOpen(true)
     }
@@ -170,21 +168,20 @@ function SimpleModal({ row, getSession, session }){
             onClose={handleClose}
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
-          >
+            >
             {body}
-          </Modal>
-            
+          </Modal>            
         </div>
       )
-}
+    }
 
 const mapStateToProps = state => ({
     session: state.session.session,
   })
   
-  const mapDispatchToProps = dispatch =>({
+const mapDispatchToProps = dispatch =>({
     getSession: (row, input) => dispatch(getSession(row, input)),
   })
   
-  export default connect(mapStateToProps,mapDispatchToProps)(SimpleModal);
+export default connect(mapStateToProps,mapDispatchToProps)(SimpleModal);
 

@@ -10,9 +10,6 @@ import "./Style.css"
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box'
 
-
-
-
 const schema = Yup.object().shape({
   first_name: Yup.string().required(),
   last_name: Yup.string().required(),
@@ -25,14 +22,12 @@ const schema = Yup.object().shape({
 function Register({ createUser }) {
   let history = useHistory()
 
-  return (
-    
+  return (    
       <Formik 
       initialValues={{ email:"", password: "" }}
       validationSchema={schema}
       onSubmit={(values,{ setSubmitting }) => {
         setTimeout(()=> {
-          console.log("FORMIK", values)
           createUser(values)
         }, 100);
       }}
@@ -56,10 +51,9 @@ function Register({ createUser }) {
             .required("La contraseña no puede quedar vacia")
             .min(8,"La contraseña es corta, debe contener 8 caracteres")
             .matches(/(?=.*[0-9])/,"la contraseña debe contener un número")
-            .oneOf([Yup.ref('passwordR')], 'Las contraseñas no son iguales'),
-        
+            .oneOf([Yup.ref('passwordR')], 'Las contraseñas no son iguales'),        
       passwordR: Yup.string().required("La contraseña no puede quedar vacia")
-      })}
+    })}
       >
         {
           props=>{
@@ -74,144 +68,138 @@ function Register({ createUser }) {
 
             return (
               <form
-              className="formu"
-              style={{
-                width:"100%",
-                textAlign:"center"
-              }} 
-              autoComplete="off" 
-              onSubmit={handleSubmit}
-              >
+                className="formu"
+                style={{
+                  width:"100%",
+                  textAlign:"center"
+                }} 
+                autoComplete="off" 
+                onSubmit={handleSubmit}
+                >
               <Box className="box">
               <Typography component="h4"  variant="h7">Estas por unirte a Wizpro la mejor plataforma</Typography>
               <Button 
                 onClick={() => history.push(`/`)}
                 size="small"
-                color="primary">
+                color="primary"
+                >
                     Volver a Login
                 </Button>
                 <label 
-                className="label"
-                htmlFor="Nombre">Nombre</label>
+                  className="label"
+                  htmlFor="Nombre">Nombre</label>
                 <TextField
-                id="outlined-search"
-                variant="outlined" 
-                className="input" 
-                type="text" 
-                value={values.first_name}
-                name="first_name" 
-                onChange={handleChange}
-                onBlur={handleBlur}
-                placeholder="Ingresa tu nombre"
-                
-                />
+                  id="outlined-search"
+                  variant="outlined" 
+                  className="input" 
+                  type="text" 
+                  value={values.first_name}
+                  name="first_name" 
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  placeholder="Ingresa tu nombre"
+                  />
                 {
                   errors.first_name && touched.first_name && (
                     <div className="inFeedback">{errors.first_name}</div>
                     )
                 }
                 <label 
-                className="label"
-                htmlFor="Apellido">Apellido</label>
+                  className="label"
+                  htmlFor="Apellido">Apellido</label>
                 <TextField
-                id="outlined-search"
-                variant="outlined" 
-                className="input" 
-                type="text" 
-                value={values.last_name}
-                name="last_name" 
-                onChange={handleChange}
-                onBlur={handleBlur}
-                placeholder="Ingresa tu apellido"
-                
-                />
+                  id="outlined-search"
+                  variant="outlined" 
+                  className="input" 
+                  type="text" 
+                  value={values.last_name}
+                  name="last_name" 
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  placeholder="Ingresa tu apellido"              
+                  />
                 {
                   errors.last_name && touched.last_name && (
                     <div className="inFeedback">{errors.last_name}</div>
                     )
                 }
                 <label 
-                className="label"
-                htmlFor="Dirección o Ciudad">Dirección o Ciudad</label>
+                  className="label"
+                  htmlFor="Dirección o Ciudad">Dirección o Ciudad</label>
                 <TextField
-                id="outlined-search"
-                variant="outlined" 
-                className="input" 
-                type="text" 
-                value={values.adress}
-                name="adress" 
-                onChange={handleChange}
-                onBlur={handleBlur}
-                placeholder="Ingresa dirección o ciudad"
-                
-                />
+                  id="outlined-search"
+                  variant="outlined" 
+                  className="input" 
+                  type="text" 
+                  value={values.adress}
+                  name="adress" 
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  placeholder="Ingresa dirección o ciudad"                  
+                  />
                 {
                   errors.adress && touched.adress && (
                     <div className="inFeedback">{errors.adress}</div>
                     )
                 }
                 <label 
-                className="label"
-                htmlFor="correo">Correo</label>
+                  className="label"
+                  htmlFor="correo">Correo</label>
                 <TextField
-                id="outlined-search"
-                variant="outlined" 
-                className="input" 
-                type="text" 
-                value={values.email}
-                name="email" 
-                onChange={handleChange}
-                onBlur={handleBlur}
-                placeholder="Ingresa tu correo"
-                
-                />
+                  id="outlined-search"
+                  variant="outlined" 
+                  className="input" 
+                  type="text" 
+                  value={values.email}
+                  name="email" 
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  placeholder="Ingresa tu correo"
+                  />
                 {
                   errors.email && touched.email && (
                     <div className="inFeedback">{errors.email}</div>
                     )
                 }
                 <label
-                className="label"                
-                htmlFor="Contraseña"
+                  className="label"                
+                  htmlFor="Contraseña"
                 >
                   Contraseña
                   </label>
                 <TextField
-                id="outlined-search"
-                variant="outlined" 
-                className="input" 
-                type="password" 
-                value={values.password}
-                name="password" 
-                onChange={handleChange}
-                onBlur={handleBlur}
-                placeholder="ingresa tu contraseña"
-                
-                />
+                  id="outlined-search"
+                  variant="outlined" 
+                  className="input" 
+                  type="password" 
+                  value={values.password}
+                  name="password" 
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  placeholder="ingresa tu contraseña"
+                  />
                 {
                   errors.password && touched.password && (
                     <div className="inFeedback">{errors.password}</div>
                     )
                 }
                 <label
-                className="label"                
-                htmlFor="Repetir contraseña"
-                >
+                  className="label"                
+                  htmlFor="Repetir contraseña"
+                  >
                   Repetir contraseña
                   </label>
                 <TextField
-                id="outlined-search"
-                variant="outlined" 
-                className="input" 
-                type="password" 
-                value={values.passwordR}
-                name="passwordR" 
-                onChange={handleChange}
-                onBlur={handleBlur}
-                placeholder="Reingresa tu password"
-                
-                />
-                
+                  id="outlined-search"
+                  variant="outlined" 
+                  className="input" 
+                  type="password" 
+                  value={values.passwordR}
+                  name="passwordR" 
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  placeholder="Reingresa tu password"
+                  />
                 {
                   errors.passwordR && touched.passwordR && (
                     <div className="inFeedback">{errors.passwordR}</div>
@@ -219,16 +207,15 @@ function Register({ createUser }) {
                 }
                 <div></div>
                 <Button 
-                style={{ marginTop:"10px"}}
-                type="submit"
-                color="primary"
-                variant="contained"
-                >
+                  style={{ marginTop:"10px"}}
+                  type="submit"
+                  color="primary"
+                  variant="contained"
+                  >
                   Registrarse
                 </Button>
                 </Box>
-
-                </form>
+              </form>
             )
           }
         }

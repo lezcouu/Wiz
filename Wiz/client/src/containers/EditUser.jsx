@@ -14,26 +14,26 @@ import IconButton from '@material-ui/core/IconButton';
 
 const EditUser = ({ row, userEdit }) => {
 
-    const [open, setOpen] = useState(false);
-    const [input, setInput] = useState({
-        id: "",
-        first_name:"",
-        last_name: "",
-        email: "",
-        adress: "",
-      })
-    const handleClose = () => {
-        setOpen(false);
-      };
+const [open, setOpen] = useState(false);
+const [input, setInput] = useState({
+    id: "",
+    first_name:"",
+    last_name: "",
+    email: "",
+    adress: "",
+  })
+const handleClose = () => {
+  setOpen(false);
+};
 
-//Setea los cambios que se hagan en el modal
-    const onChangeUser = (e) => {
-        setInput({
-        ...input,
-        [e.target.name]: e.target.value,
-        });
-    }
-    const setearModificarid = (row) => {
+
+const onChangeUser = (e) => {
+  setInput({
+    ...input,
+      [e.target.name]: e.target.value,
+  });
+}
+const setearModificarid = (row) => {
     setInput({
         id: row.id,
         first_name: row.first_name,
@@ -41,11 +41,11 @@ const EditUser = ({ row, userEdit }) => {
         email: row.email,
         adress: row.adress,
     });
-    setOpen(true)
-    };
+  setOpen(true)
+};
 
-//Realiza la edicion del producto
-  const modified = (e) => {
+
+const modified = (e) => {
     e.preventDefault(e)
     userEdit(input)
     handleClose()
@@ -54,27 +54,27 @@ const EditUser = ({ row, userEdit }) => {
     return (
         <Box>
             <IconButton >
-                 <FaPencilAlt onClick={() => setearModificarid(row)} button />
+              <FaPencilAlt onClick={() => setearModificarid(row)} button />
             </IconButton>
             <Dialog
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby="form-dialog-title"
-                >
-                  <DialogTitle id="form-dialog-title">
-                    Modificar Usuario
-                  </DialogTitle>
-                  <DialogContent>
-                    <TextField
-                      name="first_name"
-                      margin="dense"
-                      label="nombre"
-                      type="text"
-                      fullWidth
-                      value={input.first_name}
-                      onChange={onChangeUser}
-                      autoFocus
-                    />
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="form-dialog-title"
+            >
+              <DialogTitle id="form-dialog-title">
+                Modificar Usuario
+              </DialogTitle>
+                <DialogContent>
+                  <TextField
+                    name="first_name"
+                    margin="dense"
+                    label="nombre"
+                    type="text"
+                    fullWidth
+                    value={input.first_name}
+                    onChange={onChangeUser}
+                    autoFocus
+                  />
                     <TextField
                       name="last_name"
                       margin="dense"
@@ -95,23 +95,22 @@ const EditUser = ({ row, userEdit }) => {
                       onChange={onChangeUser}
                       autoFocus
                     />
-                    
                   </DialogContent>
                   <div style={{ margin: 8 }}>
-                    <DialogActions >
-                      <Button onClick={handleClose} color="primary">
-                        Cerrar
+                  <DialogActions >
+                    <Button onClick={handleClose} color="primary">
+                      Cerrar
                     </Button>
-                      <Button
-                        type="submit"
-                        onClick={modified}
-                        color="primary"
-                      >
-                        Modificar
-                    </Button>
-                    </DialogActions>
-                  </div>
-                </Dialog>            
+                  <Button
+                    type="submit"
+                    onClick={modified}
+                    color="primary"
+                    >
+                  Modificar
+                </Button>
+              </DialogActions>
+            </div>
+          </Dialog>            
         </Box>
     )
 }

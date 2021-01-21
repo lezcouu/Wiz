@@ -29,7 +29,7 @@ const NavBar = ( props, {  }) => {
 	const classes = useStyles()
 	const [mobileOpen, setMobileOpen] = React.useState(false);
 
-	const open = () => {
+const open = () => {
     setMobileOpen(!mobileOpen);
   };
 	return (
@@ -42,7 +42,7 @@ const NavBar = ( props, {  }) => {
 				className={classes.menuButton}
 				onClick={()=>props.open()}
 				>
-					<FaElementor />
+   				<FaElementor />
 				</IconButton>
 					<Typography variant="h6">
 						Bienvenido a Wizpro
@@ -51,7 +51,7 @@ const NavBar = ( props, {  }) => {
 			</AppBar>
 
 		)
-}
+    }
 
 const mapStateToProps = (state) => ({
   
